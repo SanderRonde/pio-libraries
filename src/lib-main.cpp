@@ -14,6 +14,7 @@ namespace Main
 	void connect_post(const char *telnet_pw)
 	{
 		// Setup OTA and wait
+		LOGF("Reset reason = %s - %s\n", ESP.getResetReason().c_str());
 		OTA::setup(telnet_pw);
 		LOGN("Booted. Waiting for possible OTAs");
 		OTA::wait_for_otas();
