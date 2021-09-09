@@ -14,7 +14,9 @@ namespace Main
 	void connect_post(const char *telnet_pw)
 	{
 		// Setup OTA and wait
+		#ifdef ESP8266
 		LOGF("Reset reason = %s - %s\n", ESP.getResetReason().c_str());
+		#endif
 		OTA::setup(telnet_pw);
 		LOGN("Booted. Waiting for possible OTAs");
 		OTA::wait_for_otas();
