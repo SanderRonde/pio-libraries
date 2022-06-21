@@ -1,6 +1,7 @@
 #include <string.h>
 
 #include <WiFiClient.h>
+#include <lib-telnet.h>
 
 #include <lib-net.h>
 
@@ -44,18 +45,19 @@ namespace Net {
 			url += "http://";
 		}
 		url += String(host) + String(path);
+		LOGF("Sending data to URL %s\n", url.c_str());
 		http.begin(client, url.c_str());
-		http.addHeader("Content-Type", "text/plain");
+		http.addHeader("Content-Type", "application/json");
 
 		int httpCode = http.POST(body);
 		if(httpCode > 0) {
 			if(httpCode != 200) {
-				Serial.printf("Got err code %d and msg %s\n", httpCode, http.getString().c_str());
+				LOGF("Got err code %d and msg %s\n", httpCode, http.getString().c_str());
 			} else {
 				result = http.getString();
 			}
 		} else {
-			Serial.printf("Got sending error %s\n", http.errorToString(httpCode).c_str());
+			LOGF("Got sending error %s\n", http.errorToString(httpCode).c_str());
 		}
 		http.end();
 
