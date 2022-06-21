@@ -22,7 +22,8 @@ WiFiMulti wifi;
 
 namespace Net {
 	WiFiClient client;
-	String req(const char* host, int port, const char* path, String body) {
+
+	String _req(const char* host, int port, const char* path, String body, bool use_https) {
 		// wait for WiFi connection
 		await_wifi();
 
@@ -36,7 +37,13 @@ namespace Net {
 		}
 
 		http.setTimeout(2000);
-		String url = "http://" + String(host) + String(path);
+		String url = "";
+		if (use_https) {
+			url += "https://";
+		} else {
+			url += "http://";
+		}
+		url += String(host) + String(path);
 		http.begin(client, url.c_str());
 		http.addHeader("Content-Type", "text/plain");
 
@@ -54,9 +61,18 @@ namespace Net {
 
 		return result;
 	}
-
+	String req(const char* host, int port, const char* path, String body) {
+		return _req(host, port, path, body, false);	
+	}
 	String req(const char* host, int port, const char* path) {
-		return req(host, port, path, "");
+		return _req(host, port, path, "", false);
+	}
+	
+	String req_secure(const char* host, int port, const char* path, String body) {
+		return _req(host, port, path, body, true);	
+	}
+	String req_secure(const char* host, int port, const char* path) {
+		return _req(host, port, path, "", true);
 	}
 
 	String req_auth(const char* secret_key, const char* host, int port, const char* path) {

@@ -20,6 +20,8 @@ namespace Net
 {
 	String req(const char *host, int port, const char *path, String body);
 	String req(const char *host, int port, const char *path);
+	String req_secure(const char *host, int port, const char *path, String body);
+	String req_secure(const char *host, int port, const char *path);
 
 	String req_auth(const char* secret_key, const char *host, int port, const char *path);
 
