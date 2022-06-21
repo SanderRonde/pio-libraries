@@ -22,7 +22,7 @@ WiFiMulti wifi;
 
 namespace Net {
 	WiFiClient client;
-	String req(const char* host, int port, const char* path) {
+	String req(const char* host, int port, const char* path, String body) {
 		// wait for WiFi connection
 		await_wifi();
 
@@ -40,7 +40,6 @@ namespace Net {
 		http.begin(client, url.c_str());
 		http.addHeader("Content-Type", "text/plain");
 
-		String body = "";
 		int httpCode = http.POST(body);
 		if(httpCode > 0) {
 			if(httpCode != 200) {
@@ -54,6 +53,10 @@ namespace Net {
 		http.end();
 
 		return result;
+	}
+
+	String req(const char* host, int port, const char* path) {
+		return req(host, port, path, "");
 	}
 
 	String req_auth(const char* secret_key, const char* host, int port, const char* path) {
