@@ -16,6 +16,13 @@
 
 using namespace std;
 
+#ifdef ESP8266
+extern ESP8266WiFiMulti wifi;
+#endif
+#ifdef ESP32
+extern WiFiMulti wifi;
+#endif
+
 namespace Net
 {
 	extern WiFiClient client;

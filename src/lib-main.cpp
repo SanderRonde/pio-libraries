@@ -1,4 +1,5 @@
 #include <lib-telnet.h>
+#include <lib-net.h>
 #include <lib-main.h>
 #include <lib-ota.h>
 #include <lib-sws.h>
@@ -10,6 +11,11 @@ namespace Main
 	{
 		Serial.begin(115200);
 		Serial.println("Booting");
+	}
+
+	void add_ap(const char *ssid, const char *pw)
+	{
+		wifi.addAP(ssid, pw);
 	}
 
 	void connect_post(const char *ota_pw)
