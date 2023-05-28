@@ -6,4 +6,6 @@ namespace Main
 	void connect(const char *name, const char *telnet_pw, const char *ssid, const char *pw);
 
 	void connect_done();
+
+	void loop();
 }
