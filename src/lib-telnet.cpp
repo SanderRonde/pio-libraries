@@ -5,21 +5,25 @@
 #include <lib-net.h>
 #include <lib-includes.h>
 
-#define DEFAULT_TELNET_IP "192.168.1.3"
-#define DEFAULT_TELNET_PORT 1500
-
 #define RETRY_TIME 30
 
 namespace Telnet
 {
 	WiFiClient client;
+	const char* _telnet_ip;
+	int _telnet_port;
 
 	char *_name = (char *)malloc(sizeof(char) * 50);
 	void connect(const char *telnet_ip, int telnet_port)
 	{
+		_telnet_ip = telnet_ip;
+		_telnet_port = telnet_port;
 		client.connect(telnet_ip, telnet_port);
 		client.write("set-name:");
 		client.write(_name);
+		client.write("\n");
+		client.write("set-ip:");
+		client.write(Net::ipToString(WiFi.localIP()).c_str());
 		client.write("\n");
 		client.write("Hi\n");
 #ifdef ESP8266
@@ -35,11 +39,6 @@ namespace Telnet
 		Net::await_wifi();
 
 		connect(telnet_ip, telnet_port);
-	}
-
-	void setup(const char *name, const char *net_ssid, const char *net_pw)
-	{
-		setup(name, net_ssid, net_pw, DEFAULT_TELNET_IP, DEFAULT_TELNET_PORT);
 	}
 
 	unsigned long last_connect = millis();
@@ -59,6 +58,6 @@ namespace Telnet
 
 	void loop()
 	{
-		loop(DEFAULT_TELNET_IP, DEFAULT_TELNET_PORT);
+		loop(_telnet_ip, _telnet_port);
 	}
 }
