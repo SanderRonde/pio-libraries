@@ -18,6 +18,10 @@ using namespace std;
 
 namespace Net
 {
+	extern WiFiClient client;
+
+	String ipToString(IPAddress ip);
+
 	String req(const char *host, int port, const char *path, String body);
 	String req(const char *host, int port, const char *path);
 	String req_secure(const char *host, int port, const char *path, String body);

@@ -7,13 +7,6 @@
 
 using namespace std;
 
-String ipToString(IPAddress ip){
-	String s = "";
-	for (int i = 0; i < 4; i++)
-		s += i  ? "." + String(ip[i]) : String(ip[i]);
-	return s;
-}
-
 #ifdef ESP8266
 ESP8266WiFiMulti wifi;
 #endif
@@ -23,6 +16,13 @@ WiFiMulti wifi;
 
 namespace Net {
 	WiFiClient client;
+	
+	String ipToString(IPAddress ip){
+		String s = "";
+		for (int i = 0; i < 4; i++)
+			s += i  ? "." + String(ip[i]) : String(ip[i]);
+		return s;
+	}
 
 	String _req(const char* host, int port, const char* path, String body, bool use_https) {
 		// wait for WiFi connection
