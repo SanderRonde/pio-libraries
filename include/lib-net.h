@@ -36,7 +36,7 @@ namespace Net
 
 	String req_auth(const char* secret_key, const char *host, int port, const char *path);
 
-	void setup(const char *ssid, const char *pw);
+	void setup();
 
 	void await_wifi();
 }

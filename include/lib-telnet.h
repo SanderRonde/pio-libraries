@@ -11,8 +11,7 @@ namespace Telnet
 {
 	extern WiFiClient client;
 
-	void setup(const char *name, const char *net_ssid, const char *net_pw, const char *telnet_ip, int telnet_port);
-	void setup(const char *name, const char *net_ssid, const char *net_pw);
+	void setup(const char *name, const char *telnet_ip, int telnet_port);
 
 	void loop(const char *telnet_ip, int telnet_port);
 	void loop();

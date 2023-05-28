@@ -31,11 +31,10 @@ namespace Telnet
 #endif
 	}
 
-	void setup(const char *name, const char *net_ssid, const char *net_pw, const char *telnet_ip, int telnet_port)
+	void setup(const char *name, const char *telnet_ip, int telnet_port)
 	{
 		strcpy(_name, name);
 
-		Net::setup(net_ssid, net_pw);
 		Net::await_wifi();
 
 		connect(telnet_ip, telnet_port);

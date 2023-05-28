@@ -30,29 +30,13 @@ namespace Main
 		LOGN("Stopped waiting");
 	}
 
-	void connect(const char *name, const char *ota_pw, const char *ssid, const char *pw, const char *telnet_ip, int telnet_port)
+	void connect(const char *name, const char *ota_pw, const char *telnet_ip, int telnet_port)
 	{
 		connect_pre();
 
 		// Setup telnet
-		Telnet::setup(name, ssid, pw, telnet_ip, telnet_port);
-
-		connect_post(ota_pw);
-	}
-
-	void connect(const char *name, const char *ota_pw, const char *ssid, const char *pw)
-	{
-		connect_pre();
-
-		// Setup telnet
-		Telnet::setup(name, ssid, pw);
-
-		// Connect websockets
-		for (int i = 0; i < SemiWebSocket::instances.size(); i++)
-		{
-			SemiWebSocket::instances[i]->start_server();
-			SemiWebSocket::instances[i]->connect();
-		}
+		Net::setup();
+		Telnet::setup(name, telnet_ip, telnet_port);
 
 		connect_post(ota_pw);
 	}

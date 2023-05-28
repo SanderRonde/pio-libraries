@@ -119,7 +119,7 @@ namespace Net {
 	}
 
 	bool _setup = false;
-	void setup(const char * ssid, const char * pw) {
+	void setup() {
 		if (_setup) return;
 
 		for (uint8_t t = 4; t > 0; t--) {
@@ -129,7 +129,6 @@ namespace Net {
 		}
 
 		WiFi.mode(WIFI_STA);
-		wifi.addAP(ssid, pw);
 
 		_setup = true;
 	}
