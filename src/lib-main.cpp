@@ -21,7 +21,7 @@ namespace Main
 	{
 		// Setup OTA and wait
 		#ifdef ESP8266
-		LOGF("Reset reason = %s - %s\n", ESP.getResetReason().c_str());
+		LOGF("Reset reason = %s\n", ESP.getResetReason().c_str());
 		#endif
 		OTA::setup(ota_pw);
 		LOGN("Booted. Waiting for possible OTAs");
