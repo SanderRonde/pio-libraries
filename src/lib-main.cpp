@@ -2,7 +2,6 @@
 #include <lib-net.h>
 #include <lib-main.h>
 #include <lib-ota.h>
-#include <lib-sws.h>
 #include "Arduino.h"
 
 namespace Main
@@ -51,6 +50,5 @@ namespace Main
 	{
 		OTA::loop();
 		Telnet::loop();
-		SemiWebSocket::loop();
 	}
 }
